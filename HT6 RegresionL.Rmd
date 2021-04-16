@@ -73,6 +73,30 @@ trainRowsNumber<-sample(nrow(datos2),porciento*nrow(datos2))
 train<-datos2[trainRowsNumber,]
 test<-datos2[-trainRowsNumber,]
 ```
+## Modelo conjunto de prueba para prediccion
+### Economicas
+```{r}
+modelo <- glm(datosEconomicas~., data = test[,c(1:28,31)],family = binomial(),maxit = 100)
+modelo
+pred <- predict(modelo,newdata = test[,1:28],type = "response")
+prediccion <-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosCasasEconomicas),as.factor(prediccion))
+```
 
+### Intermedias
+```{r}
+modelo <- glm(datosIntermedias~., data = train[,c(1:28,32)],family = binomial(),maxit = 100)
+modelo
+pred <- predict(modelo,newdata = test[,1:28],type = "response")
+prediccion <-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosCasasIntermedias),as.factor(prediccion))
+```
 
-
+### Caras
+```{r}
+modelo <- glm(datosCaras~., data = test[,c(1:28,30)],family = binomial(),maxit = 100)
+modelo
+pred <- predict(modelo,newdata = test[,1:28],type = "response")
+prediccion <-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosCasasCaras),as.factor(prediccion))
+```
