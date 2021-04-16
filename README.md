@@ -1,4 +1,4 @@
-# HT6 Regresion Lineal
+# HT6 Regresion Logistica
 Mineria de Datosss
 
 Inegrantes:
